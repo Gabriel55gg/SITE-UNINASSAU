@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal do Aluno - Biblioteca</title>
+    <!-- Carrega Tailwind CSS para estilização moderna e responsiva -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Ícones para tornar o portal mais interativo (usando Font Awesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* Configuração de Cores e Fontes */
+        :root {
+            --primary-blue: #003D73; /* Nassau Blue */
+            --secondary-yellow: #FDB913; /* Nassau Yellow */
+            --light-bg: #f5f7fa;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--light-bg);
+        }
+
+        /* Estilos da Sidebar para responsividade em telas menores */
+        .sidebar-nav {
+            min-width: 250px;
+            background-color: var(--primary-blue);
+            padding: 1.5rem 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar-nav {
+                display: none;
+            }
+            .portal-layout {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .nav-item i {
+            font-size: 1.25rem;
+            width: 30px;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-left: 4px solid var(--secondary-yellow);
+        }
+        
+        .nav-item.active i {
+            color: var(--secondary-yellow);
+        }
+
+        .nav-item.logout {
+            margin-top: auto; /* Empurra para o final da sidebar */
+            color: #ffdddd;
+        }
+        .nav-item.logout:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Configuração de cores do Tailwind -->
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                'nassau-blue': '#003D73',
+                'nassau-yellow': '#FDB913',
+                'bg-light': '#f5f7fa',
+              },
+            }
+          }
+        }
+    </script>
+
+    <header class="main-header bg-white shadow-md p-4 flex justify-between items-center sticky top-0 z-10">
+        <div class="logo-area flex items-center">
+            <i class="fa-solid fa-graduation-cap text-3xl text-nassau-yellow mr-3"></i>
+            <span class="text-xl font-bold text-nassau-blue hidden sm:block">Portal UNINASSAU</span>
+        </div>
+        
+        <div class="user-info flex items-center space-x-4">
+            <span class="user-name text-nassau-blue font-semibold text-sm sm:text-base" id="userNameDisplay">
+                Olá, Aluno(a)!
+            </span>
+            <i class="fa-solid fa-bell notification-icon text-nassau-yellow text-lg cursor-pointer hover:text-nassau-blue"></i>
+            <i class="fa-solid fa-circle-user profile-icon text-nassau-blue text-2xl cursor-pointer"></i>
+        </div>
+    </header>
+
+    <div class="portal-layout flex">
+        
+        <!-- SIDEBAR DE NAVEGAÇÃO: Link "Biblioteca" está ativo -->
+        <nav class="sidebar-nav hidden md:flex">
+            <a href="index.html" class="nav-item">
+                <i class="fa-solid fa-house"></i> <span>Início</span>
+            </a>
+            <a href="academico.html" class="nav-item">
+                <i class="fa-solid fa-graduation-cap"></i> <span>Acadêmico</span>
+            </a>
+            <a href="financeiro.html" class="nav-item">
+                <i class="fa-solid fa-dollar-sign"></i> <span>Financeiro</span>
+            </a>
+            <a href="biblioteca.html" class="nav-item active">
+                <i class="fa-solid fa-book"></i> <span>Biblioteca</span>
+            </a>
+            <a href="mensagens.html" class="nav-item">
+                <i class="fa-solid fa-envelope"></i> <span>Mensagens</span>
+            </a>
+            <a href="#" class="nav-item logout" id="logoutButton">
+                <i class="fa-solid fa-right-from-bracket"></i> <span>Sair</span>
+            </a>
+        </nav>
+
+        <!-- CONTEÚDO PRINCIPAL (BIBLIOTECA) -->
+        <main class="dashboard-content flex-grow p-4 md:p-8">
+            
+            <section class="section-title mb-8">
+                <h1 class="text-3xl font-bold text-nassau-blue">Acervo Digital e Empréstimos</h1>
+                <p class="text-gray-600">Pesquise, reserve e gerencie seus livros emprestados.</p>
+            </section>
+
+            <!-- Barra de Pesquisa -->
+            <section class="mb-8 p-6 bg-white rounded-xl shadow-lg">
+                <h2 class="text-2xl font-bold text-nassau-blue mb-4">Pesquisa Rápida</h2>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <input type="text" placeholder="Buscar por título, autor ou ISBN..." class="flex-grow p-3 border border-gray-300 rounded-lg focus:ring-nassau-yellow focus:border-nassau-yellow transition duration-150">
+                    <button class="bg-nassau-yellow text-nassau-blue font-bold py-3 px-6 rounded-lg hover:bg-yellow-400 transition-colors shadow-md">
+                        <i class="fa-solid fa-magnifying-glass mr-2"></i> Buscar
+                    </button>
+                    <a href="#" class="sm:self-center text-nassau-blue font-bold hover:text-nassau-yellow transition-colors whitespace-nowrap">
+                        <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> Acessar Acervo Completo
+                    </a>
+                </div>
+            </section>
+
+            <!-- Empréstimos Ativos -->
+            <section class="mb-8 p-6 bg-white rounded-xl shadow-lg border-t-4 border-nassau-blue">
+                <h2 class="text-2xl font-bold text-nassau-blue mb-4">Meus Empréstimos Ativos</h2>
+                <div class="space-y-4">
+                    <!-- Livro 1 -->
+                    <div class="flex items-center justify-between border-b pb-4">
+                        <div class="flex items-center space-x-4">
+                            <i class="fa-solid fa-book-open text-3xl text-nassau-blue"></i>
+                            <div>
+                                <p class="font-semibold text-gray-900">Programação em Python Avançada</p>
+                                <p class="text-sm text-gray-600">Devolução: <span class="text-red-600 font-bold">28/FEV</span></p>
+                            </div>
+                        </div>
+                        <button class="bg-gray-200 text-gray-700 text-sm py-1 px-3 rounded-full hover:bg-gray-300 transition-colors">
+                            Renovar
+                        </button>
+                    </div>
+                    <!-- Livro 2 -->
+                    <div class="flex items-center justify-between pb-4">
+                        <div class="flex items-center space-x-4">
+                            <i class="fa-solid fa-book-open text-3xl text-nassau-blue"></i>
+                            <div>
+                                <p class="font-semibold text-gray-900">Introdução à Inteligência Artificial</p>
+                                <p class="text-sm text-gray-600">Devolução: 15/MAR</p>
+                            </div>
+                        </div>
+                        <button class="bg-gray-200 text-gray-700 text-sm py-1 px-3 rounded-full hover:bg-gray-300 transition-colors">
+                            Renovar
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+    </div>
+
+    <script>
+        // Função para carregar o nome do usuário e gerenciar o Logout
+        document.addEventListener('DOMContentLoaded', () => {
+            const userNameDisplay = document.getElementById('userNameDisplay');
+            const storedName = sessionStorage.getItem('currentNome');
+            
+            if (storedName) {
+                const firstName = storedName.split(' ')[0];
+                userNameDisplay.textContent = `Olá, ${firstName}!`; 
+            } else {
+                userNameDisplay.textContent = `Olá, Aluno(a)!`;
+                // window.location.href = 'logon.html'; // Descomente em produção
+            }
+
+            const logoutButton = document.getElementById('logoutButton');
+            if (logoutButton) {
+                logoutButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    sessionStorage.clear();
+                    window.location.href = 'logon.html'; 
+                });
+            }
+        });
+    </script>
+</body>
+</html>

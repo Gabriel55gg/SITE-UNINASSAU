@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acesso Seguro - UNINASSAU</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* Estilos Neumorphic (Baseado em logon.css e estilos embutidos do usuário) */
+        :root {
+            --primary-color: #003D73; /* Azul Nassau */
+            --secondary-color: #FDB913; /* Amarelo Nassau */
+            --background-color: #f0f0f0;
+            --shadow-light: #ffffff;
+            --shadow-dark: #bebebe;
+            --border-radius: 20px;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .main-container {
+            padding: 20px;
+        }
+
+        .neumorphic-card {
+            background: var(--background-color);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: 10px 10px 20px var(--shadow-dark), -10px -10px 20px var(--shadow-light);
+            width: 100%;
+            max-width: 400px;
+            transition: all 0.3s ease;
+        }
+        
+        .header-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .icon-main {
+            font-size: 48px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px var(--shadow-dark), -2px -2px 4px var(--shadow-light);
+        }
+
+        #cardTitle {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin: 0;
+        }
+
+        /* Input Group Styling */
+        .input-group {
+            display: flex;
+            align-items: center;
+            background: var(--background-color);
+            border-radius: 12px;
+            padding: 10px 15px;
+            margin-bottom: 25px;
+            box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+            transition: all 0.3s ease;
+        }
+
+        .input-group:focus-within {
+            box-shadow: inset 2px 2px 5px var(--shadow-dark), inset -2px -2px 5px var(--shadow-light), 0 0 0 2px var(--secondary-color);
+        }
+
+        .input-group i {
+            color: var(--primary-color);
+            margin-right: 15px;
+            font-size: 18px;
+        }
+
+        .input-group input {
+            border: none;
+            outline: none;
+            flex-grow: 1;
+            padding: 5px 0;
+            background: transparent;
+            font-size: 16px;
+            color: #333;
+        }
+        
+        /* Button Styling */
+        .neumorphic-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 15px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+            background-color: var(--primary-color);
+            cursor: pointer;
+            box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light);
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .neumorphic-btn i {
+            margin-right: 10px;
+        }
+
+        .neumorphic-btn:hover {
+            background-color: #004a8f;
+            transform: translateY(-2px);
+            box-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
+        }
+
+        .neumorphic-btn:active {
+            box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+            transform: translateY(0);
+        }
+
+        /* Utility Styles */
+        .hidden { display: none !important; }
+        .message-box {
+            padding: 10px; border-radius: 12px; margin-bottom: 20px; text-align: center;
+            font-size: 14px; font-weight: 700; border: 1px solid;
+            box-shadow: inset 2px 2px 5px var(--shadow-dark), inset -5px -5px 10px var(--shadow-light);
+        }
+        .message-box.error { background-color: #ffe6e6; color: #cc0000; border-color: #ffcccc; }
+        .message-box.success { background-color: #e6ffe6; color: #008000; border-color: #ccffcc; }
+        
+        .form-switch-link { 
+            display: block; margin-top: 20px; font-size: 14px;
+            color: var(--primary-color); cursor: pointer; text-decoration: none;
+            transition: color 0.3s;
+            text-align: center;
+        }
+        .form-switch-link:hover { color: var(--secondary-color); }
+
+        .btn-loading { cursor: not-allowed; opacity: 0.8; }
+        .btn-loading:hover { transform: none; box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light); }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        
+        <div class="neumorphic-card">
+            
+            <div class="header-container">
+                <i class="fas fa-graduation-cap icon-main"></i>
+                <h2 id="cardTitle">Login - Portal do Aluno</h2>
+            </div>
+
+            <div id="messageContainer"></div>
+
+            <!-- FORMULÁRIO DE LOGIN -->
+            <form id="loginForm">
+                
+                <div class="input-group">
+                    <i class="fas fa-user-circle"></i>
+                    <input type="text" id="loginMatricula" placeholder="Matrícula" required>
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-key"></i>
+                    <input type="password" id="loginSenha" placeholder="Senha" required>
+                </div>
+                
+                <button type="submit" class="neumorphic-btn" id="loginButton">
+                    <i class="fas fa-sign-in-alt"></i> ENTRAR
+                </button>
+
+                <a href="#" id="showRegister" class="form-switch-link">
+                    Não tem conta? Cadastre-se.
+                </a>
+            </form>
+
+            <!-- FORMULÁRIO DE REGISTRO -->
+            <form id="registerForm" class="hidden">
+                
+                <div class="input-group">
+                    <i class="fas fa-signature"></i>
+                    <input type="text" id="registerNome" placeholder="Nome Completo" required>
+                </div>
+                
+                <div class="input-group">
+                    <i class="fas fa-user-circle"></i>
+                    <input type="text" id="registerMatricula" placeholder="Matrícula (Login)" required>
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-key"></i>
+                    <input type="password" id="registerSenha" placeholder="Crie uma senha (min. 6 caracteres)" required>
+                </div>
+
+                <button type="submit" class="neumorphic-btn" id="registerButton">
+                    <i class="fas fa-user-plus"></i> CADASTRAR
+                </button>
+
+                <a href="#" id="showLogin" class="form-switch-link">
+                    Já sou cadastrado. Fazer Login.
+                </a>
+            </form>
+
+        </div>
+    </div>
+
+    
+    <script type="module">
+        
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { 
+            getAuth, 
+            setPersistence, 
+            browserSessionPersistence,
+            createUserWithEmailAndPassword,
+            signInWithEmailAndPassword,
+            onAuthStateChanged
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        
+        
+        const __app_id = 'PORTAL_ALUNO_NEUMO'; 
+        
+        // Usei a configuração de Firebase que você forneceu.
+        const firebaseConfig = {
+            apiKey: "AIzaSyDsmFJa6xQnnfwDu5F67z7gnLaM6DnDHao",
+            authDomain: "registro-nassau.firebaseapp.com",
+            projectId: "registro-nassau",
+            storageBucket: "registro-nassau.firebasestorage.app",
+            messagingSenderId: "33472621776",
+            appId: "1:33472621776:web:9aac7e65938d68f17642d5",
+            measurementId: "G-6QEX6TEZNL"
+        };
+        
+        
+        let db;
+        let auth;
+        const EMAIL_DOMAIN = "@aluno.portal.local"; // Domínio fictício
+        const USERS_COLLECTION_PATH = `/artifacts/${__app_id}/public/data/students`; 
+
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const showRegisterLink = document.getElementById('showRegister');
+        const showLoginLink = document.getElementById('showLogin');
+        const messageContainer = document.getElementById('messageContainer');
+        const cardTitle = document.getElementById('cardTitle');
+        const loginButton = document.getElementById('loginButton');
+        const registerButton = document.getElementById('registerButton');
+
+        // ---------------------------------------------------------------------
+        // FUNÇÕES DE UI E FEEDBACK
+        // ---------------------------------------------------------------------
+
+        function displayMessage(message, isSuccess = false) {
+            messageContainer.innerHTML = `<div class="message-box ${isSuccess ? 'success' : 'error'}">${message}</div>`;
+            setTimeout(() => {
+                messageContainer.innerHTML = '';
+            }, 5000);
+        }
+
+        function setButtonLoading(button, isLoading, originalText, iconClass) {
+            if (isLoading) {
+                button.dataset.originalText = originalText;
+                button.dataset.originalIcon = iconClass;
+                button.disabled = true;
+                button.classList.add('btn-loading');
+                button.innerHTML = `<i class="fas fa-spinner fa-spin"></i> AGUARDE...`;
+            } else {
+                button.disabled = false;
+                button.classList.remove('btn-loading');
+                button.innerHTML = `${button.dataset.originalIcon} ${button.dataset.originalText}`;
+            }
+        }
+        
+        function switchForm(formToShow) {
+            if (formToShow === 'login') {
+                loginForm.classList.remove('hidden');
+                registerForm.classList.add('hidden');
+                cardTitle.textContent = 'Login - Portal do Aluno';
+            } else {
+                loginForm.classList.add('hidden');
+                registerForm.classList.remove('hidden');
+                cardTitle.textContent = 'Criação de Conta';
+            }
+            messageContainer.innerHTML = ''; // Limpa mensagens
+        }
+
+        // ---------------------------------------------------------------------
+        // INICIALIZAÇÃO DO FIREBASE
+        // ---------------------------------------------------------------------
+
+        async function initializeFirebase() {
+            try {
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                await setPersistence(auth, browserSessionPersistence);
+                console.log("Firebase inicializado.");
+            } catch (error) {
+                console.error("Erro ao inicializar Firebase:", error);
+                displayMessage("Erro de conexão. Verifique suas credenciais de configuração.");
+            }
+        }
+        
+       
+        
+        async function cadastrarUsuario(nome, matricula, senha) {
+            setButtonLoading(registerButton, true, 'CADASTRAR', '<i class="fas fa-user-plus"></i>');
+            const email = matricula + EMAIL_DOMAIN;
+            
+            try {
+                
+                const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
+                const uid = userCredential.user.uid;
+
+                
+                const userDocRef = doc(db, USERS_COLLECTION_PATH, matricula);
+                await setDoc(userDocRef, {
+                    uid: uid,
+                    nome: nome,
+                    matricula: matricula,
+                    createdAt: new Date().toISOString()
+                });
+
+                displayMessage(`Cadastro de ${nome} realizado com sucesso! Prossiga para o Login.`, true);
+                
+                
+                setTimeout(() => {
+                    document.getElementById('loginMatricula').value = matricula;
+                    document.getElementById('registerSenha').value = '';
+                    switchForm('login');
+                }, 1500);
+
+                return true;
+            } catch (error) {
+                let msg = "Erro desconhecido ao registrar.";
+                
+                if (error.code === 'auth/email-already-in-use') {
+                    msg = `A matrícula ${matricula} já está registrada.`;
+                } else if (error.code === 'auth/weak-password') {
+                    msg = 'A senha deve ter pelo menos 6 caracteres.';
+                } else if (error.code === 'auth/invalid-api-key') {
+                    msg = 'Erro na API Key. Verifique sua firebaseConfig.';
+                } else {
+                    console.error("Erro de registro:", error);
+                    msg = `Erro: ${error.message}`;
+                }
+                
+                displayMessage(msg);
+                return false;
+            } finally {
+                setButtonLoading(registerButton, false, 'CADASTRAR', '<i class="fas fa-user-plus"></i>');
+            }
+        }
+
+        
+        async function fazerLogin(matricula, senha) {
+            setButtonLoading(loginButton, true, 'ENTRAR', '<i class="fas fa-sign-in-alt"></i>');
+            const email = matricula + EMAIL_DOMAIN;
+
+            try {
+                
+                await signInWithEmailAndPassword(auth, email, senha);
+                
+                
+                const userDocRef = doc(db, USERS_COLLECTION_PATH, matricula);
+                const docSnap = await getDoc(userDocRef);
+                const nomeUsuario = docSnap.exists() ? docSnap.data().nome : "Aluno(a)";
+
+                // *** FIX: SALVANDO O NOME NO sessionStorage ***
+                sessionStorage.setItem('currentNome', nomeUsuario);
+                sessionStorage.setItem('currentMatricula', matricula);
+                // **********************************************
+                
+                displayMessage(`Bem-vindo(a), ${nomeUsuario}! Redirecionando...`, true);
+                
+                
+                setTimeout(() => {
+                    window.location.href = 'index.html'; 
+                }, 1000);
+                
+                
+                return true;
+            } catch (error) {
+                let msg = "Erro ao fazer login. Verifique sua matrícula e senha.";
+                
+                if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+                    msg = "Matrícula ou senha incorreta.";
+                } else {
+                    console.error("Erro de login:", error);
+                    msg = `Erro: ${error.message}`;
+                }
+                
+                displayMessage(msg);
+                return false;
+            } finally {
+                setButtonLoading(loginButton, false, 'ENTRAR', '<i class="fas fa-sign-in-alt"></i>');
+            }
+        }
+
+        
+        
+        
+        showRegisterLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchForm('register');
+        });
+
+        showLoginLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchForm('login');
+        });
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const matricula = document.getElementById('loginMatricula').value.trim();
+            const senha = document.getElementById('loginSenha').value;
+            if (matricula && senha) {
+                await fazerLogin(matricula, senha);
+            } else {
+                displayMessage("Preencha todos os campos de login.");
+            }
+        });
+
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const nome = document.getElementById('registerNome').value.trim();
+            const matricula = document.getElementById('registerMatricula').value.trim();
+            const senha = document.getElementById('registerSenha').value;
+
+            if (nome && matricula && senha) {
+                await cadastrarUsuario(nome, matricula, senha);
+            } else {
+                displayMessage("Preencha todos os campos para registro.");
+            }
+        });
+
+        // Configuração inicial dos botões de carregamento
+        loginButton.dataset.originalText = 'ENTRAR';
+        loginButton.dataset.originalIcon = '<i class="fas fa-sign-in-alt"></i>';
+        registerButton.dataset.originalText = 'CADASTRAR';
+        registerButton.dataset.originalIcon = '<i class="fas fa-user-plus"></i>';
+
+        initializeFirebase();
+    </script>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal do Aluno - Acadêmico</title>
+    <!-- Carrega Tailwind CSS para estilização moderna e responsiva -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Ícones para tornar o portal mais interativo (usando Font Awesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* Configuração de Cores e Fontes */
+        :root {
+            --primary-blue: #003D73; /* Nassau Blue */
+            --secondary-yellow: #FDB913; /* Nassau Yellow */
+            --light-bg: #f5f7fa;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--light-bg);
+        }
+
+        /* Estilos da Sidebar para responsividade em telas menores */
+        .sidebar-nav {
+            min-width: 250px;
+            background-color: var(--primary-blue);
+            padding: 1.5rem 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar-nav {
+                display: none;
+            }
+            .portal-layout {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .nav-item i {
+            font-size: 1.25rem;
+            width: 30px;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-left: 4px solid var(--secondary-yellow);
+        }
+        
+        .nav-item.active i {
+            color: var(--secondary-yellow);
+        }
+
+        .nav-item.logout {
+            margin-top: auto; /* Empurra para o final da sidebar */
+            color: #ffdddd;
+        }
+        .nav-item.logout:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Configuração de cores do Tailwind -->
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                'nassau-blue': '#003D73',
+                'nassau-yellow': '#FDB913',
+                'bg-light': '#f5f7fa',
+              },
+            }
+          }
+        }
+    </script>
+
+    <header class="main-header bg-white shadow-md p-4 flex justify-between items-center sticky top-0 z-10">
+        <div class="logo-area flex items-center">
+            <i class="fa-solid fa-graduation-cap text-3xl text-nassau-yellow mr-3"></i>
+            <span class="text-xl font-bold text-nassau-blue hidden sm:block">Portal UNINASSAU</span>
+        </div>
+        
+        <div class="user-info flex items-center space-x-4">
+            <span class="user-name text-nassau-blue font-semibold text-sm sm:text-base" id="userNameDisplay">
+                Olá, Aluno(a)!
+            </span>
+            <i class="fa-solid fa-bell notification-icon text-nassau-yellow text-lg cursor-pointer hover:text-nassau-blue"></i>
+            <i class="fa-solid fa-circle-user profile-icon text-nassau-blue text-2xl cursor-pointer"></i>
+        </div>
+    </header>
+
+    <div class="portal-layout flex">
+        
+        <!-- SIDEBAR DE NAVEGAÇÃO: Link "Acadêmico" está ativo -->
+        <nav class="sidebar-nav hidden md:flex">
+            <a href="index.html" class="nav-item">
+                <i class="fa-solid fa-house"></i> <span>Início</span>
+            </a>
+            <a href="academico.html" class="nav-item active">
+                <i class="fa-solid fa-graduation-cap"></i> <span>Acadêmico</span>
+            </a>
+            <a href="financeiro.html" class="nav-item">
+                <i class="fa-solid fa-dollar-sign"></i> <span>Financeiro</span>
+            </a>
+            <a href="biblioteca.html" class="nav-item">
+                <i class="fa-solid fa-book"></i> <span>Biblioteca</span>
+            </a>
+            <a href="mensagens.html" class="nav-item">
+                <i class="fa-solid fa-envelope"></i> <span>Mensagens</span>
+            </a>
+            <a href="#" class="nav-item logout" id="logoutButton">
+                <i class="fa-solid fa-right-from-bracket"></i> <span>Sair</span>
+            </a>
+        </nav>
+
+        <!-- CONTEÚDO PRINCIPAL (ACADÊMICO) -->
+        <main class="dashboard-content flex-grow p-4 md:p-8">
+            
+            <section class="section-title mb-8">
+                <h1 class="text-3xl font-bold text-nassau-blue">Minhas Disciplinas</h1>
+                <p class="text-gray-600">Confira seu progresso no semestre e materiais de apoio.</p>
+            </section>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                <!-- Card de Status do Semestre -->
+                <div class="bg-nassau-blue text-white p-6 rounded-xl shadow-lg lg:col-span-1">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-lg font-semibold">Semestre Atual: 2024.1</span>
+                        <i class="fa-solid fa-circle-info text-2xl text-nassau-yellow"></i>
+                    </div>
+                    <p class="text-4xl font-bold">75%</p>
+                    <p class="text-sm opacity-80">Conclusão de Carga Horária</p>
+                </div>
+                
+                <!-- Próxima Avaliação -->
+                <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-nassau-yellow lg:col-span-2">
+                    <h3 class="text-xl font-bold text-nassau-blue mb-3">Próxima Avaliação</h3>
+                    <div class="flex justify-between items-center text-gray-700">
+                        <div>
+                            <p class="font-semibold">Disciplina: Estrutura de Dados</p>
+                            <p class="text-sm">Assunto: Árvores Binárias</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-bold text-lg text-red-600">15/03/2024</p>
+                            <p class="text-xs">Sala: 305 - Bloco C</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabela de Disciplinas -->
+            <section class="bg-white p-6 rounded-xl shadow-lg">
+                <h2 class="text-2xl font-bold text-nassau-blue mb-4">Acompanhamento de Disciplinas</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-nassau-blue">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider rounded-tl-lg">Disciplina</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Professor</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Média Atual</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider rounded-tr-lg">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Desenvolvimento Web</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-600">Dr. João Silva</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">8.5</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-nassau-blue hover:text-nassau-yellow cursor-pointer text-sm">Ver Detalhes</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Engenharia de Software I</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-600">Ms. Ana Souza</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">6.9</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-nassau-blue hover:text-nassau-yellow cursor-pointer text-sm">Ver Detalhes</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Banco de Dados NoSQL</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-600">Esp. Maria Costa</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">4.1</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-nassau-blue hover:text-nassau-yellow cursor-pointer text-sm">Ver Detalhes</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+
+    </div>
+
+    <script>
+        // Função para carregar o nome do usuário e gerenciar o Logout
+        document.addEventListener('DOMContentLoaded', () => {
+            const userNameDisplay = document.getElementById('userNameDisplay');
+            const storedName = sessionStorage.getItem('currentNome');
+            
+            if (storedName) {
+                const firstName = storedName.split(' ')[0];
+                userNameDisplay.textContent = `Olá, ${firstName}!`; 
+            } else {
+                userNameDisplay.textContent = `Olá, Aluno(a)!`;
+                // window.location.href = 'logon.html'; // Descomente em produção
+            }
+
+            const logoutButton = document.getElementById('logoutButton');
+            if (logoutButton) {
+                logoutButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    sessionStorage.clear();
+                    window.location.href = 'logon.html'; 
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Notas e Faltas - Nassau</title>
+    <!-- Usando a fonte Montserrat para um visual moderno e limpo -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Ícones para tornar o portal mais interativo (usando Font Awesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="portal.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="logo-area">
+            <img src="img/logo.png" alt="Logo Nassau" class="header-logo">
+        </div>
+        
+        <div class="user-info">
+            <span class="user-name">Olá, Maria Eduarda!</span>
+            <i class="fa-solid fa-bell notification-icon"></i>
+            <i class="fa-solid fa-circle-user profile-icon"></i>
+        </div>
+    </header>
+
+    <div class="portal-layout">
+        
+        <!-- SIDEBAR DE NAVEGAÇÃO -->
+        <!-- O item "Acadêmico" está ativo agora -->
+        <nav class="sidebar-nav">
+            <a href="index.html" class="nav-item"><i class="fa-solid fa-house"></i> <span>Início</span></a>
+            <a href="#" class="nav-item active"><i class="fa-solid fa-graduation-cap"></i> <span>Acadêmico</span></a>
+            <a href="#" class="nav-item"><i class="fa-solid fa-dollar-sign"></i> <span>Financeiro</span></a>
+            <a href="#" class="nav-item"><i class="fa-solid fa-book"></i> <span>Biblioteca</span></a>
+            <a href="#" class="nav-item"><i class="fa-solid fa-envelope"></i> <span>Mensagens</span></a>
+            <a href="#" class="nav-item logout"><i class="fa-solid fa-right-from-bracket"></i> <span>Sair</span></a>
+        </nav>
+
+        <!-- CONTEÚDO PRINCIPAL: NOTAS E FALTAS -->
+        <main class="dashboard-content">
+            
+            <section class="section-title">
+                <h1>Minhas Notas e Faltas</h1>
+                <p>Status acadêmico atualizado do semestre 11.2025</p>
+            </section>
+
+            <!-- CARD DE RESUMO E ALERTAS -->
+            <div class="summary-cards-grid">
+                
+                <div class="summary-card total-disciplines">
+                    <i class="fa-solid fa-list-check"></i>
+                    <h4>Total de Disciplinas</h4>
+                    <p>8</p>
+                </div>
+
+                <div class="summary-card academic-progress">
+                    <i class="fa-solid fa-percent"></i>
+                    <h4>Média Geral Atual</h4>
+                    <p class="highlight-blue">7.8</p>
+                </div>
+
+                <div class="summary-card absence-alert">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <h4>Risco de Reprovação por Falta</h4>
+                    <p class="highlight-red">Nenhuma</p>
+                </div>
+
+            </div>
+
+            <!-- TABELA DE DISCIPLINAS -->
+            <section class="grades-section">
+                <h2><i class="fa-solid fa-table"></i> Detalhe por Disciplina</h2>
+                
+                <div class="responsive-table-container">
+                    <table class="grades-table">
+                        <thead>
+                            <tr>
+                                <th>Disciplina</th>
+                                <th>P1 (3.0)</th>
+                                <th>P2 (7.0)</th>
+                                <th>Média</th>
+                                <th>Faltas (Total)</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Exemplo de Disciplina Aprovada -->
+                            <tr>
+                                <td data-label="Disciplina">Cálculo Diferencial e Integral I</td>
+                                <td data-label="P1 (3.0)">2.5</td>
+                                <td data-label="P2 (7.0)">6.0</td>
+                                <td data-label="Média">8.5</td>
+                                <td data-label="Faltas (Total)">4 (10%)</td>
+                                <td data-label="Status"><span class="status-tag approved">Aprovado</span></td>
+                            </tr>
+                            <!-- Exemplo de Disciplina em Exame -->
+                            <tr>
+                                <td data-label="Disciplina">Algoritmos e Estruturas de Dados</td>
+                                <td data-label="P1 (3.0)">1.8</td>
+                                <td data-label="P2 (7.0)">4.5</td>
+                                <td data-label="Média">6.3</td>
+                                <td data-label="Faltas (Total)">8 (20%)</td>
+                                <td data-label="Status"><span class="status-tag exam">Exame Final</span></td>
+                            </tr>
+                            <!-- Exemplo de Disciplina Reprovada (por Média) -->
+                            <tr>
+                                <td data-label="Disciplina">Direito do Trabalho</td>
+                                <td data-label="P1 (3.0)">0.9</td>
+                                <td data-label="P2 (7.0)">3.0</td>
+                                <td data-label="Média">3.9</td>
+                                <td data-label="Faltas (Total)">2 (5%)</td>
+                                <td data-label="Status"><span class="status-tag failed">Reprovado</span></td>
+                            </tr>
+                            <!-- Exemplo de Disciplina Reprovada (por Falta) -->
+                             <tr>
+                                <td data-label="Disciplina">Psicologia Organizacional</td>
+                                <td data-label="P1 (3.0)">2.8</td>
+                                <td data-label="P2 (7.0)">6.5</td>
+                                <td data-label="Média">9.3</td>
+                                <td data-label="Faltas (Total)">12 (30%)</td>
+                                <td data-label="Status"><span class="status-tag failed-absence">Reprovado Faltas</span></td>
+                            </tr>
+                            <!-- Outras Disciplinas -->
+                            <tr>
+                                <td data-label="Disciplina">Metodologia Científica</td>
+                                <td data-label="P1 (3.0)">3.0</td>
+                                <td data-label="P2 (7.0)">7.0</td>
+                                <td data-label="Média">10.0</td>
+                                <td data-label="Faltas (Total)">0 (0%)</td>
+                                <td data-label="Status"><span class="status-tag approved">Aprovado</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p class="table-legend">Legenda: Média para Aprovação é 7.0. Risco de Reprovação por falta a partir de 25% de ausência.</p>
+            </section>
+
+        </main>
+
+    </div>
+
+</body>
+</html>

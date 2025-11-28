@@ -1,0 +1,162 @@
+:root {
+    --nassau-blue-dark: #003D73;
+    --nassau-yellow: #FDB913;
+    --nassau-blue-light: #0070c0;
+    --bg-color: #F5F7FA;
+    --shadow-light: #ffffff;
+    --shadow-dark: #d2dce4;
+    --font-color: #333;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+    color: var(--font-color);
+}
+
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, var(--bg-color) 0%, #e2e4e8 100%);
+}
+
+.neumorphic-card {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    padding: 45px 35px;
+    border-radius: 30px;
+    background: var(--bg-color);
+    box-shadow: 15px 15px 30px var(--shadow-dark), 
+               -15px -15px 30px var(--shadow-light);
+    text-align: center;
+    transition: box-shadow 0.5s ease;
+}
+
+.header-container {
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--shadow-dark);
+}
+
+.icon-main {
+    font-size: 45px;
+    color: var(--nassau-blue-dark);
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 5px rgba(0, 61, 115, 0.2); 
+}
+
+#cardTitle {
+    font-weight: 700;
+    color: var(--nassau-blue-dark);
+    font-size: 26px;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+    padding: 12px 20px;
+    border-radius: 18px;
+    box-shadow: inset 4px 4px 8px var(--shadow-dark), 
+                inset -4px -4px 8px var(--shadow-light);
+    background-color: var(--bg-color);
+}
+
+.input-group i {
+    color: var(--nassau-blue-light);
+    font-size: 18px;
+    margin-right: 15px;
+}
+
+.input-group input {
+    flex-grow: 1;
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    padding: 5px 0;
+    color: var(--font-color);
+    outline: none;
+}
+
+.input-group input:focus {
+    color: var(--nassau-blue-dark);
+}
+
+.input-group input::placeholder {
+    color: #a0a0a0;
+}
+
+.neumorphic-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    background: var(--nassau-yellow);
+    color: var(--nassau-blue-dark);
+    box-shadow: 8px 8px 16px rgba(253, 185, 19, 0.4), 
+               -8px -8px 16px var(--shadow-light);
+    transition: all 0.3s ease;
+}
+
+.neumorphic-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 10px 10px 20px rgba(253, 185, 19, 0.6), 
+               -10px -10px 20px var(--shadow-light);
+}
+
+.neumorphic-btn:active, .neumorphic-btn.btn-loading {
+    box-shadow: inset 4px 4px 8px rgba(0, 61, 115, 0.2), 
+                inset -4px -4px 8px var(--shadow-light);
+    transform: none;
+    background: var(--nassau-yellow);
+}
+
+.neumorphic-btn i {
+    margin-right: 10px;
+}
+
+@media (max-width: 450px) {
+    .neumorphic-card {
+        margin: 20px;
+        padding: 30px;
+        border-radius: 25px;
+        box-shadow: 8px 8px 16px var(--shadow-dark), 
+                   -8px -8px 16px var(--shadow-light);
+    }
+    
+    .header-container {
+        margin-bottom: 25px;
+    }
+    
+    .icon-main {
+        font-size: 40px;
+    }
+    
+    #cardTitle {
+        font-size: 22px;
+    }
+
+    .neumorphic-btn {
+        padding: 13px;
+        font-size: 15px;
+    }
+}
