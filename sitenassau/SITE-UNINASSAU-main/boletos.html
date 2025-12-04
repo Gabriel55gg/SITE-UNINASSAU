@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal do Aluno - Financeiro</title>
+    <link rel="stylesheet" href="portal.css">
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Fonte Montserrat (assumindo que está carregada via CSS ou link) -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="main-header">
+        <img src="https://placehold.co/150x40/004d99/ffffff?text=UNINASSAU" alt="Logo UNINASSAU" class="header-logo" onerror="this.onerror=null;this.src='https://placehold.co/150x40/004d99/ffffff?text=Logo';">
+        <div class="user-info">
+            <span class="user-name">João S. Rodrigues</span>
+            <i class="fas fa-bell notification-icon"></i>
+            <i class="fas fa-user-circle profile-icon"></i>
+        </div>
+    </header>
+
+    <div class="portal-layout">
+        <!-- Barra de Navegação Lateral/Superior -->
+        <nav class="sidebar-nav">
+            <a href="index.html" class="nav-item">
+                <i class="fas fa-th-large"></i> 
+                <span>Dashboard</span>
+            </a>
+            <a href="notas_faltas.html" class="nav-item">
+                <i class="fas fa-poll-h"></i> 
+                <span>Notas e Faltas</span>
+            </a>
+            <a href="boletos.html" class="nav-item active">
+                <i class="fas fa-money-bill-wave"></i> 
+                <span>Boletos</span>
+            </a>
+            <a href="calendario_academico.html" class="nav-item">
+                <i class="fas fa-calendar-alt"></i> 
+                <span>Calendário</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-book-reader"></i> 
+                <span>Biblioteca</span>
+            </a>
+            <a href="#" class="nav-item logout">
+                <i class="fas fa-sign-out-alt"></i> 
+                <span>Sair</span>
+            </a>
+        </nav>
+
+        <!-- Conteúdo Principal: Boletos -->
+        <main class="dashboard-content">
+            <section class="section-title">
+                <h1><i class="fas fa-money-bill-wave"></i> Meus Boletos e Financeiro</h1>
+                <p>Visualize o status das suas mensalidades, imprima a 2ª via e acesse o código de barras.</p>
+            </section>
+
+            <!-- Cards de Resumo Financeiro -->
+            <div class="summary-cards-grid">
+                <div class="summary-card" style="border-top: 5px solid #004d99;">
+                    <i class="fas fa-calendar-check" style="color: #004d99;"></i>
+                    <h4>Mensalidades Pagas</h4>
+                    <p class="highlight-blue">9/12</p>
+                </div>
+                <div class="summary-card" style="border-top: 5px solid #ffc107;">
+                    <i class="fas fa-exclamation-triangle" style="color: #ffc107;"></i>
+                    <h4>Boletos em Aberto</h4>
+                    <p style="color: #ffc107;">3</p>
+                </div>
+                <div class="summary-card" style="border-top: 5px solid #dc3545;">
+                    <i class="fas fa-ban" style="color: #dc3545;"></i>
+                    <h4>Pendências Vencidas</h4>
+                    <p class="highlight-red">1</p>
+                </div>
+                <div class="summary-card" style="border-top: 5px solid #28a745;">
+                    <i class="fas fa-percent" style="color: #28a745;"></i>
+                    <h4>Desconto Ativo</h4>
+                    <p style="color: #28a745;">15%</p>
+                </div>
+            </div>
+
+            <!-- Tabela de Boletos -->
+            <div class="grades-section">
+                <h2>Extrato de Mensalidades (2024.2)</h2>
+                
+                <div class="responsive-table-container">
+                    <table class="grades-table">
+                        <thead>
+                            <tr>
+                                <th>Mês/Referência</th>
+                                <th>Valor Original</th>
+                                <th>Vencimento</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Item Vencido -->
+                            <tr>
+                                <td data-label="Mês/Referência">Agosto / 2024</td>
+                                <td data-label="Valor Original">R$ 850,00</td>
+                                <td data-label="Vencimento">05/08/2024</td>
+                                <td data-label="Status">
+                                    <span class="status-tag failed">VENCIDO</span>
+                                </td>
+                                <td data-label="Ações">
+                                    <button class="action-button-red" onclick="alert('Simulação: Boleto em atraso. Cobrança de juros aplicada.');">
+                                        <i class="fas fa-file-invoice-dollar"></i> 2ª Via + Juros
+                                    </button>
+                                </td>
+                            </tr>
+                            
+                            <!-- Item em Aberto -->
+                            <tr>
+                                <td data-label="Mês/Referência">Setembro / 2024</td>
+                                <td data-label="Valor Original">R$ 850,00</td>
+                                <td data-label="Vencimento">05/09/2024</td>
+                                <td data-label="Status">
+                                    <span class="status-tag exam">EM ABERTO</span>
+                                </td>
+                                <td data-label="Ações">
+                                    <button class="action-button-blue" onclick="alert('Simulação: Boleto de Setembro pronto para pagamento. Copiando código de barras...');">
+                                        <i class="fas fa-barcode"></i> Cód. Barras
+                                    </button>
+                                </td>
+                            </tr>
+                            
+                            <!-- Item Próximo Vencimento -->
+                            <tr>
+                                <td data-label="Mês/Referência">Outubro / 2024</td>
+                                <td data-label="Valor Original">R$ 850,00</td>
+                                <td data-label="Vencimento">05/10/2024</td>
+                                <td data-label="Status">
+                                    <span class="status-tag exam" style="background-color: #fce8e8; color: #dc3545;">A VENCER (5 dias)</span>
+                                </td>
+                                <td data-label="Ações">
+                                    <button class="action-button-blue" onclick="alert('Simulação: Baixando 2ª via do boleto de Outubro.');">
+                                        <i class="fas fa-file-download"></i> Imprimir 2ª Via
+                                    </button>
+                                </td>
+                            </tr>
+
+                             <!-- Item Pago -->
+                            <tr>
+                                <td data-label="Mês/Referência">Julho / 2024</td>
+                                <td data-label="Valor Original">R$ 850,00</td>
+                                <td data-label="Vencimento">05/07/2024</td>
+                                <td data-label="Status">
+                                    <span class="status-tag approved">PAGO</span>
+                                </td>
+                                <td data-label="Ações">
+                                    <button class="action-button-green" onclick="alert('Simulação: Baixando comprovante de pagamento de Julho.');">
+                                        <i class="fas fa-receipt"></i> Comprovante
+                                    </button>
+                                </td>
+                            </tr>
+                            
+                            <!-- Mais itens pagos -->
+                            <tr>
+                                <td data-label="Mês/Referência">Junho / 2024</td>
+                                <td data-label="Valor Original">R$ 850,00</td>
+                                <td data-label="Vencimento">05/06/2024</td>
+                                <td data-label="Status">
+                                    <span class="status-tag approved">PAGO</span>
+                                </td>
+                                <td data-label="Ações">
+                                    <button class="action-button-green" onclick="alert('Simulação: Baixando comprovante de pagamento de Junho.');">
+                                        <i class="fas fa-receipt"></i> Comprovante
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p class="table-legend">Atenção: Boletos vencidos podem ter juros e multas calculados automaticamente na emissão da 2ª via.</p>
+
+            </div>
+            
+            <!-- Estilos de Botão Específicos para a Tabela de Boletos -->
+            <style>
+                .action-button-blue, .action-button-red, .action-button-green {
+                    padding: 8px 12px;
+                    border: none;
+                    border-radius: 6px;
+                    font-size: 14px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: background-color 0.2s, opacity 0.2s;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 5px;
+                    margin: 2px 0;
+                }
+                .action-button-blue {
+                    background-color: #004d99;
+                    color: white;
+                }
+                .action-button-blue:hover {
+                    background-color: #003a7a;
+                }
+                .action-button-red {
+                    background-color: #dc3545;
+                    color: white;
+                }
+                .action-button-red:hover {
+                    background-color: #c82333;
+                }
+                .action-button-green {
+                    background-color: #28a745;
+                    color: white;
+                }
+                .action-button-green:hover {
+                    background-color: #1e7e34;
+                }
+                
+                /* Ajuste para mobile na tabela de boletos */
+                @media (max-width: 900px) {
+                    .grades-table td[data-label="Ações"] {
+                        text-align: left;
+                        padding-left: 15px; /* Ajusta padding para que o botão fique na esquerda */
+                    }
+                    .grades-table td[data-label="Ações"]::before {
+                         display: none; /* Remove a label no mobile para a coluna de Ações */
+                    }
+                    .grades-table td {
+                        padding-top: 10px;
+                        padding-bottom: 10px;
+                    }
+                }
+            </style>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal do Aluno - Nassau</title>
+    <!-- Carrega Tailwind CSS para estilização moderna e responsiva -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Ícones para tornar o portal mais interativo (usando Font Awesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* Configuração de Cores e Fontes */
+        :root {
+            --primary-blue: #003D73; /* Nassau Blue */
+            --secondary-yellow: #FDB913; /* Nassau Yellow */
+            --light-bg: #f5f7fa;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--light-bg);
+        }
+
+        /* Estilos da Sidebar para responsividade em telas menores */
+        .sidebar-nav {
+            min-width: 250px;
+            background-color: var(--primary-blue);
+            padding: 1.5rem 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+        }
+
+        @media (max-width: 768px) {
+            /* Oculta a sidebar em telas pequenas e usa um menu horizontal (oculto por padrão neste HTML) */
+            .sidebar-nav {
+                display: none;
+            }
+            .portal-layout {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .nav-item i {
+            font-size: 1.25rem;
+            width: 30px;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-left: 4px solid var(--secondary-yellow);
+        }
+        
+        .nav-item.active i {
+            color: var(--secondary-yellow);
+        }
+
+        .nav-item.logout {
+            margin-top: auto; /* Empurra para o final da sidebar */
+            color: #ffdddd;
+        }
+        .nav-item.logout:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Configuração de cores do Tailwind -->
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                'nassau-blue': '#003D73',
+                'nassau-yellow': '#FDB913',
+                'bg-light': '#f5f7fa',
+              },
+            }
+          }
+        }
+    </script>
+
+    <header class="main-header bg-white shadow-md p-4 flex justify-between items-center sticky top-0 z-10">
+        <div class="logo-area flex items-center">
+            <!-- Usando um ícone placeholder, substitua por sua logo real -->
+            <i class="fa-solid fa-graduation-cap text-3xl text-nassau-yellow mr-3"></i>
+            <span class="text-xl font-bold text-nassau-blue hidden sm:block">Portal UNINASSAU</span>
+        </div>
+        
+        <div class="user-info flex items-center space-x-4">
+            <!-- ID para o JS atualizar o nome -->
+            <span class="user-name text-nassau-blue font-semibold text-sm sm:text-base" id="userNameDisplay">
+                Olá, Aluno(a)!
+            </span>
+            <i class="fa-solid fa-bell notification-icon text-nassau-yellow text-lg cursor-pointer hover:text-nassau-blue"></i>
+            <i class="fa-solid fa-circle-user profile-icon text-nassau-blue text-2xl cursor-pointer"></i>
+        </div>
+    </header>
+
+    <div class="portal-layout flex">
+        
+        <!-- SIDEBAR DE NAVEGAÇÃO -->
+        <nav class="sidebar-nav hidden md:flex">
+            <a href="#" class="nav-item active">
+                <i class="fa-solid fa-house"></i> <span>Início</span>
+            </a>
+            <a href="academico.html" class="nav-item">
+                <i class="fa-solid fa-graduation-cap"></i> <span>Acadêmico</span>
+            </a>
+            <a href="financeiro.html" class="nav-item">
+                <i class="fa-solid fa-dollar-sign"></i> <span>Financeiro</span>
+            </a>
+            <a href="biblioteca.html" class="nav-item">
+                <i class="fa-solid fa-book"></i> <span>Biblioteca</span>
+            </a>
+            <a href="mensagens.html" class="nav-item">
+                <i class="fa-solid fa-envelope"></i> <span>Mensagens</span>
+            </a>
+            <!-- Botão Sair com função de limpar sessionStorage -->
+            <a href="google.com" class="nav-item logout" id="logoutButton">
+                <i class="fa-solid fa-right-from-bracket"></i> <span>Sair</span>
+            </a>
+        </nav>
+
+        <!-- CONTEÚDO PRINCIPAL (DASHBOARD) -->
+        <main class="dashboard-content flex-grow p-4 md:p-8">
+            
+            <section class="section-title mb-8">
+                <h1 class="text-3xl font-bold text-nassau-blue">Dashboard do Aluno</h1>
+                <p class="text-gray-600">Seu resumo acadêmico e acessos rápidos.</p>
+            </section>
+
+            <!-- CARDS DE ACESSO RÁPIDO -->
+            <section class="quick-access-grid grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                
+                <div class="access-card bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow border-t-4 border-nassau-blue">
+                    <i class="fa-solid fa-clipboard-check text-4xl text-nassau-blue mb-3"></i>
+                    <h3 class="text-xl font-semibold mb-2">Minhas Notas e Faltas</h3>
+                    <p class="text-gray-500 mb-4 text-sm">Verifique o status das suas disciplinas atuais.</p>
+                    <a href="notas_faltas.html" class="card-link text-nassau-blue font-bold hover:text-nassau-yellow transition-colors">Acessar Notas &rarr;</a>
+                </div>
+
+                <div class="access-card bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow border-t-4 border-nassau-yellow">
+                    <i class="fa-solid fa-receipt text-4xl text-nassau-yellow mb-3"></i>
+                    <h3 class="text-xl font-semibold mb-2">Boletos Pendentes</h3>
+                    <p class="text-gray-500 mb-4 text-sm">Visualizar, baixar ou pagar faturas em aberto.</p>
+                    <a href="boletos.html" class="card-link text-nassau-blue font-bold hover:text-nassau-yellow transition-colors">Ver Faturas &rarr;</a>
+                </div>
+
+                <div class="access-card bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow border-t-4 border-nassau-blue">
+                    <i class="fa-solid fa-calendar-days text-4xl text-nassau-blue mb-3"></i>
+                    <h3 class="text-xl font-semibold mb-2">Calendário Acadêmico</h3>
+                    <p class="text-gray-500 mb-4 text-sm">Fique por dentro das datas de provas e eventos.</p>
+                    <a href="calendario_academico.html" class="card-link text-nassau-blue font-bold hover:text-nassau-yellow transition-colors">Ver Calendário &rarr;</a>
+                </div>
+
+            </section>
+            
+            <!-- ÁREA DE NOTÍCIAS/ALERTA -->
+            <section class="news-section bg-white p-6 rounded-xl shadow-lg">
+                <h2 class="text-2xl font-bold text-nassau-blue mb-4">
+                    <i class="fa-solid fa-bullhorn mr-2 text-nassau-yellow"></i> Notícias e Alertas
+                </h2>
+                <div class="news-item border-b border-gray-200 py-3">
+                    <h4 class="text-lg font-semibold text-gray-800">Matrícula 2024.2 Aberta!</h4>
+                    <p class="text-gray-600 mt-1">O período de renovação de matrícula já está disponível no sistema. Não perca o prazo!</p>
+                    <span class="news-date text-xs text-gray-400 mt-1 block">10 de Janeiro</span>
+                </div>
+                <div class="news-item pt-3">
+                    <h4 class="text-lg font-semibold text-gray-800">Nova Biblioteca Virtual</h4>
+                    <p class="text-gray-600 mt-1">Mais de 5.000 títulos foram adicionados ao acervo digital. Acesse já.</p>
+                    <span class="news-date text-xs text-gray-400 mt-1 block">05 de Janeiro</span>
+                </div>
+            </section>
+
+        </main>
+
+    </div>
+
+    <script>
+        // Função para carregar o nome do usuário ao carregar a página
+        document.addEventListener('DOMContentLoaded', () => {
+            const userNameDisplay = document.getElementById('userNameDisplay');
+            // Tenta pegar o nome salvo na sessão de navegação
+            const storedName = sessionStorage.getItem('currentNome');
+            
+            if (storedName) {
+                // Se houver nome, exibe apenas o primeiro nome para uma saudação mais amigável
+                const firstName = storedName.split(' ')[0];
+                userNameDisplay.textContent = `Olá, ${firstName}!`; 
+            } else {
+                // Caso contrário, mostra o texto padrão e em um aplicativo real faria o redirecionamento
+                userNameDisplay.textContent = `Olá, Aluno(a)!`;
+                // Para garantir a segurança, você pode descomentar esta linha:
+                // window.location.href = 'logon.html'; 
+            }
+
+            // Lógica para o botão de Sair (Logout)
+            const logoutButton = document.getElementById('logoutButton');
+            if (logoutButton) {
+                logoutButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    // Limpa todas as informações de sessão (nome e matrícula)
+                    sessionStorage.clear();
+                    // Redireciona para a página de login
+                    window.location.href = 'logon.html'; 
+                });
+            }
+        });
+    </script>
+</body>
+</html>
